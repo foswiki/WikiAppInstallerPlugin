@@ -1,0 +1,69 @@
+%META:TOPICPARENT{name="Plugins"}%
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Enable users to share/test drive Foswiki Wiki Apps
+-->
+---+!! Wiki AppStore Plugin 
+
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+This plugin provides a simple method of allowing users to try out Wiki Apps in a personal Sandbox "playpen" or creating/packaging Wiki Apps to share with the Foswiki community. 
+
+---+++ Allowing users to test Wiki Apps
+To allow a user to test a Wiki App (or application), simply add the following Macro anywhere in the Wiki App topic itself or in a separate overview topic. (Which is the preferred method)
+
+<pre>
+%<nop>APPSTORE_TRYME%
+</pre>
+
+This macro will attempt to identify the topics which comprise the application via a perference setting called *MANIFEST*. All topics defined in this preference setting will be copied to the Sandbox area for testing by the user. The _Application Topic_ is assumed to be the first topic defined in this setting.
+
+<pre>
+   * <nop>Set MANIFEST = AppTopic, AppTopicTemplate
+</pre>
+
+The plugin then performs the following actions when the macro button is clicked:
+
+   * Creates a personalized "playpen" web under Sandbox called Sandbox/%<nop>WIKINAME% e.g. Sandbox/%WIKINAME%, if this does not already exist
+   * Reads the topics defined in the MANIFEST preference setting, verifies that the topics exist and copies the topics to the playpen web
+   * Redirects to the _Application Topic_ in the playpen web
+   * Adds a default <nop>Sandbox/%WIKINAME%/WebHome topic listing the Wiki Apps available in the playpen web, and advises the user that it is a temporary area which will be cleared down after a defined period of inactivity.
+
+This action can be repeated a number of times, with all subsequent copied topics overwriting any existing topics in the playpen
+
+---+++ Create new/package existing Wiki Apps
+
+To allow a user to download the various topics which comprise the Wiki App,  simply add the following Macro anywhere in the Wiki App topic itself or in a separate overview topic. (Which is the preferred method)
+
+<pre>
+%<nop>APPSTORE_PACKAGEME%
+</pre>
+
+This macro will parses the *MANIFEST* preference setting, and provides a bullet list of the topics which point to the *raw=all* view of the topic and opens in a new window/tab. This allows the user to copy/paste the contents of the topic to a topic of the same name in their local install of Foswiki. 
+
+(This is definitely an area which may be improved in future releases)
+
+---++ Examples
+
+See Foswiki:WikiApps/WebHome for Wiki App examples and how this plugin is used.
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author(s): | Foswiki:Main/PadraigLennon, Foswiki:Main/CrawfordCurrie |
+|  Copyright: | &copy; |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/AppStorePlugin |
+|  Support: | Foswiki:Support/AppStorePlugin |
+

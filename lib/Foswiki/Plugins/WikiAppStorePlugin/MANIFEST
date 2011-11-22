@@ -1,0 +1,5 @@
+!noci
+data/System/WikiAppStorePlugin.txt 0644 Documentation page
+lib/Foswiki/Plugins/WikiAppStorePlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/WikiAppStorePlugin/Macros.pm 0444 Perl module
+lib/Foswiki/Plugins/WikiAppStorePlugin/Config.spec 0444 Configuration
