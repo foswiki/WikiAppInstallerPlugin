@@ -11,41 +11,58 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-This plugin provides a simple method of allowing users to try out Wiki Apps in a personal Sandbox "playpen" or creating/packaging Wiki Apps to share with the Foswiki community. 
+Wiki Applications (Wiki Apps) are applications built from one or more wiki topics that usually contain [[macros]]. Most Wiki Apps require no additional software to be installed on your server, and can be used as-is, or can be used as templates for your own custom wiki apps.
 
----+++ Allowing users to test Wiki Apps
-To allow a user to test a Wiki App (or application), simply add the following Macro anywhere in the Wiki App topic itself or in a separate overview topic. (Which is the preferred method)
+Many wiki apps are useful to a lot of people and have been shared on foswiki.org. However the process of evaluating and installing the applications has in the past been rather clumsy and error prone. This plugin addresses this problem.
+
+The plugin provides simple ways to:
+   * try out Wiki Apps on foswiki.org in a personal Sandbox "playpen",
+   * create/package Wiki Apps to share with the Foswiki community,
+   * install Wiki Apps in a reliable and repeatable way.
+
+(At the time of writing the installer is not ready, but is planned for a future release.)
+
+---+++ Allowing users to try out Wiki Apps
+
+The simplest way to try out a wiki applications is to install the application and play
+with it. This plugin helps with this by supporting the installation of the application
+in a personalized "playpen" web under the Sandbox web.
+
+Wiki Apps have to be rooted at an _application topic_ which provides a portal for the application to be used. To allow a user to test a Wiki App, simply add the following [[macro]] anywhere in the application topic.
+
+Alternatively, create a separate overview topic for the application, and add the macro there (this is the preferred method).
 
 <pre>
 %<nop>APPSTORE_TRYME%
 </pre>
 
-This macro will attempt to identify the topics which comprise the application via a perference setting called *MANIFEST*. All topics defined in this preference setting will be copied to the Sandbox area for testing by the user. The _Application Topic_ is assumed to be the first topic defined in this setting.
+In the same topic, define a [[preference settings][preference]] called =MANIFEST=. This must be a comma-separated list of topic names, the first of which is assumed to be the application topic.
 
+For example,
 <pre>
-   * <nop>Set MANIFEST = AppTopic, AppTopicTemplate
+   * <nop>Set MANIFEST = MeetingMinutes, CreateNewMeeting, MeetingTemplate
 </pre>
 
-The plugin then performs the following actions when the macro button is clicked:
+When the topic containing the =%<nop>APPSTORE_TRYME%= macro is viewed, the macro will be expanded to a button which, when pressed, will:
+   1 Create a playpen called =Sandbox/%<nop>WIKINAME%= e.g. Sandbox/%WIKINAME%. If it already exists, the existing web will be re-used.
+   1 Check that any required extensions (e.g. Plugins) are installed,
+   1 Verify that the topics exist, and copy them to the playpen web,
+   1 Add a default <nop>Sandbox/%WIKINAME%/WebHome topic, listing the Wiki Apps available in the playpen web, and advise the user that it is a temporary area which will be cleared down after a defined period of inactivity.
+   1 Redirect the view to the application topic just created in the playpen web,
 
-   * Creates a personalized "playpen" web under Sandbox called Sandbox/%<nop>WIKINAME% e.g. Sandbox/%WIKINAME%, if this does not already exist
-   * Reads the topics defined in the MANIFEST preference setting, verifies that the topics exist and copies the topics to the playpen web
-   * Redirects to the _Application Topic_ in the playpen web
-   * Adds a default <nop>Sandbox/%WIKINAME%/WebHome topic listing the Wiki Apps available in the playpen web, and advises the user that it is a temporary area which will be cleared down after a defined period of inactivity.
+This action can be repeated any number of times, with all subsequent copied topics overwriting any existing topics in the playpen
 
-This action can be repeated a number of times, with all subsequent copied topics overwriting any existing topics in the playpen
+---+++ Simplifying installation of Wiki Apps
 
----+++ Create new/package existing Wiki Apps
-
-To allow a user to download the various topics which comprise the Wiki App,  simply add the following Macro anywhere in the Wiki App topic itself or in a separate overview topic. (Which is the preferred method)
+Installing a Wiki App involves creating the topics listing in the =MANIFEST= in the user's local installation of Foswiki. To simplify this, add the following macro anywhere in the same topic as the =%<nop>APPSTORE_TRYME%=.
 
 <pre>
 %<nop>APPSTORE_PACKAGEME%
 </pre>
 
-This macro will parses the *MANIFEST* preference setting, and provides a bullet list of the topics which point to the *raw=all* view of the topic and opens in a new window/tab. This allows the user to copy/paste the contents of the topic to a topic of the same name in their local install of Foswiki. 
+When expanded, this macro will provide a bullet list of the topics. When the topics in this list are clicked, a new window will open up displaying the raw text of the topic. This raw text can then be copy/pasted to a topic of the same name in your local install of Foswiki. 
 
-(This is definitely an area which may be improved in future releases)
+(This is definitely an area which will be improved in future releases)
 
 ---++ Examples
 
