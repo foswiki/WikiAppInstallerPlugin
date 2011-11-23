@@ -3,7 +3,7 @@
 One line description, required for extensions repository catalog.
    * Set SHORTDESCRIPTION = Enable users to share/test drive Foswiki Wiki Apps
 -->
----+!! Wiki AppStore Plugin 
+---+!! Wiki App Installer Plugin 
 
 %SHORTDESCRIPTION%
 
@@ -33,7 +33,7 @@ Wiki Apps have to be rooted at an _application topic_ which provides a portal fo
 Alternatively, create a separate overview topic for the application, and add the macro there (this is the preferred method).
 
 <pre>
-%<nop>APPSTORE_TRYME%
+%<nop>WIKIAPP_INSTALLER_TRYME%
 </pre>
 
 In the same topic, define a [[preference settings][preference]] called =MANIFEST=. This must be a comma-separated list of topic names, the first of which is assumed to be the application topic.
@@ -43,7 +43,7 @@ For example,
    * <nop>Set MANIFEST = MeetingMinutes, CreateNewMeeting, MeetingTemplate
 </pre>
 
-When the topic containing the =%<nop>APPSTORE_TRYME%= macro is viewed, the macro will be expanded to a button which, when pressed, will:
+When the topic containing the =%<nop>WIKIAPP_INSTALLER_TRYME%= macro is viewed, the macro will be expanded to a button which, when pressed, will:
    1 Create a playpen called =Sandbox/%<nop>WIKINAME%= e.g. Sandbox/%WIKINAME%. If it already exists, the existing web will be re-used.
    1 Check that any required extensions (e.g. Plugins) are installed,
    1 Verify that the topics exist, and copy them to the playpen web,
@@ -54,10 +54,10 @@ This action can be repeated any number of times, with all subsequent copied topi
 
 ---+++ Simplifying installation of Wiki Apps
 
-Installing a Wiki App involves creating the topics listing in the =MANIFEST= in the user's local installation of Foswiki. To simplify this, add the following macro anywhere in the same topic as the =%<nop>APPSTORE_TRYME%=.
+Installing a Wiki App involves creating the topics listing in the =MANIFEST= in the user's local installation of Foswiki. To simplify this, add the following macro anywhere in the same topic as the =%<nop>WIKIAPP_INSTALLER_TRYME%=.
 
 <pre>
-%<nop>APPSTORE_PACKAGEME%
+%<nop>WIKIAPP_INSTALLER_PACKAGEME%
 </pre>
 
 When expanded, this macro will provide a bullet list of the topics. When the topics in this list are clicked, a new window will open up displaying the raw text of the topic. This raw text can then be copy/pasted to a topic of the same name in your local install of Foswiki. 
@@ -81,6 +81,6 @@ See Foswiki:WikiApps/WebHome for Wiki App examples and how this plugin is used.
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | Foswiki:Extensions/AppStorePlugin |
-|  Support: | Foswiki:Support/AppStorePlugin |
+|  Home page: | Foswiki:Extensions/WikiAppInstallerPlugin |
+|  Support: | Foswiki:Support/WikiAppInstallerPlugin |
 

@@ -1,4 +1,4 @@
-package Foswiki::Plugins::WikiAppStorePlugin::Macros;
+package Foswiki::Plugins::WikiAppInstallerPlugin::Macros;
 
 use strict;
 use warnings;
@@ -7,15 +7,14 @@ sub TRYME {
     my ( $session, $params, $topic, $web, $topicObject ) = @_;
     my $return_text = undef;
 
-    # Check if the Wiki App requires any extensions. If it does check
-    # that they are enabled/installed or notify the user that they will
-    #not be able to test run the Wiki App.
+# Check if the Wiki App requires any extensions. If it does check that they are enabled/installed
+# or notify the user that they will not be able to test run the Wiki App.
     my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
     my $reqd_extensions =
       Foswiki::Func::getPreferencesValue('REQUIRED_EXTENSIONS');
     if ($reqd_extensions) {
 
-	# Check if the required extensions are available on this install of Foswiki
+     # Check if the required extensions are available on this install of Foswiki
         my @extensions = split( /, */, $reqd_extensions );
         if ( scalar @extensions gt 0 ) {
             foreach my $extension (@extensions) {
@@ -23,14 +22,14 @@ sub TRYME {
                 # Remove any web prefix if it exists
                 $extension =~ s/Extensions.|System.|%SYSTEMEWEB%.|\[|\]//gi;
 
-                # If a Plugin is referenced check that it is enabled
+                #	If a Plugin is referenced check that it is enabled
                 if ( $extension =~ /Plugin/mi ) {
                     unless ( $Foswiki::cfg{Plugins}{$extension}{Enabled} ) {
                         $return_text .=
 "\n<div class='foswikiAlert'>Required extension \'$extension\' is not installed/enabled</div>\n\n";
                     }
 
-		    # If a Contrib/AddOn is referenced check that there is a topic in the %SYSTEMWEB% with the same name
+#	If a Contrib/AddOn is referenced check that there is a topic in the %SYSTEMWEB% with the same name
                 }
                 elsif ( $extension =~ /Contrib|AddOn/mi ) {
                     unless (
@@ -47,7 +46,7 @@ sub TRYME {
         }
     }
 
-    # If $return_text is defined, disable the test button as it will not work on this install of Foswiki
+#	If $return_text is defined, disable the test button as it will not work on this install of Foswiki
     if ($return_text) {
         Foswiki::Func::writeWarning($return_text);
         $return_text .=
@@ -60,7 +59,7 @@ sub TRYME {
         }
         else {
             $return_text .=
-"\nYou can test this application on this Foswiki install in a personal playpen web called *Sandbox/%WIKINAME%* which will be created if it does not already exist. You simply need to click on the following button:\n";
+"\nYou can test this application here on this Foswiki install in a personal playpen web called *Sandbox/%WIKINAME%* which will be created if it does not already exist. You simply need to click on the following button:\n";
             $return_text .=
 "\n<a class='foswikiSubmit' href='%SCRIPTURL{view}%/$web/$topic?appstore_try=1;app_topic=%WEB%.%TOPIC%'>Try this Wiki Application in your personal Sandbox web</a>";
             return $return_text;
@@ -95,7 +94,7 @@ sub doTRYME {
         Foswiki::Meta->new( $session, $targetWeb )
           ->populateNewWeb( '_empty', {} );
 
-	# Add a default WebHome topic which will list all applications in this new web
+  # Add a default WebHome topic which will list all applications in this new web
         ( $meta, $text ) = ( '', '' );
         $text .=
           '---+!! Welcome to your personal playpen web for testing Web Apps';
@@ -126,19 +125,19 @@ sub doTRYME {
         }
         else {
 
-	    # Copy the default UserCommentsTemplate topic to the playpen
-	    #my ($meta, $text) = Foswiki::Func::readTopic('System', $user_comments_template);
+#   Copy the default UserCommentsTemplate topic to the playpen
+#my ($meta, $text) = Foswiki::Func::readTopic('System', $user_comments_template);
             $comment_topics[0] =~ s/Template//g;
             $text =
 "\n<verbatim>\n%TMPL:INCLUDE{\"$comment_topics[0]\"}%\n</verbatim>\n";
 
-	    # Must drop the 'Template'  when adding include to the UserCommentsTemplate
+     # Must drop the 'Template'  when adding include to the UserCommentsTemplate
             Foswiki::Func::saveTopic( $targetWeb, $user_comments_template,
                 $meta, $text, { dontlog => 1, minor => 1 } );
         }
     }
 
-    # Find out what is the landing page for the wiki app (Assuming its the first one)
+#	Find out what is the landing page for the wiki app (Assuming its the first one)
     my $app_landing_topic = $topics[0];
     foreach $topic (@topics) {
         unless ( Foswiki::Func::topicExists( $web, $topic ) ) {
@@ -169,7 +168,7 @@ sub doTRYME {
         Foswiki::Func::saveTopic( $targetWeb, $topic, $meta, $text,
             { dontlog => 1, minor => 1 } );
 
-        # Copy any attachments to the sandbox web
+        #	Copy any attachments to the sandbox web
         use Error qw( :try );
         my @attachment_list = undef;
         @attachment_list = Foswiki::Func::getAttachmentList( $web, $topic );
@@ -189,7 +188,7 @@ sub doTRYME {
         }
     }
 
-    # Now redirect to the App Landing page in the personal Sandbox Web
+    #	Now redirect to the App Landing page in the personal Sandbox Web
     Foswiki::Func::redirectCgiQuery( undef,
         Foswiki::Func::getScriptUrl( $targetWeb, $app_landing_topic, 'view' ),
         0 );

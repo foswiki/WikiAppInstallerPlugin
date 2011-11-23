@@ -1,0 +1,5 @@
+!noci
+data/System/WikiAppInstallerPlugin.txt 0644 Documentation page
+lib/Foswiki/Plugins/WikiAppInstallerPlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/WikiAppInstallerPlugin/Macros.pm 0444 Perl module
+lib/Foswiki/Plugins/WikiAppInstallerPlugin/Config.spec 0444 Configuration
