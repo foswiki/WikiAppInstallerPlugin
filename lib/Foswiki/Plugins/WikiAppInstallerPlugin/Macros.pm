@@ -54,14 +54,14 @@ sub TRYME {
         return $return_text;
     }
     else {
-        if ( Foswiki::Func::getCgiQuery()->param("appstore_try") ) {
+        if ( Foswiki::Func::getCgiQuery()->param("wikiappinstaller_try") ) {
             doTRYME($session);
         }
         else {
             $return_text .=
 "\nYou can test this application here on this Foswiki install in a personal playpen web called *Sandbox/%WIKINAME%* which will be created if it does not already exist. You simply need to click on the following button:\n";
             $return_text .=
-"\n<a class='foswikiSubmit' href='%SCRIPTURL{view}%/$web/$topic?appstore_try=1;app_topic=%WEB%.%TOPIC%'>Try this Wiki Application in your personal Sandbox web</a>";
+"\n<a class='foswikiSubmit' href='%SCRIPTURL{view}%/$web/$topic?wikiappinstaller_try=1;app_topic=%WEB%.%TOPIC%'>Test this Wiki Application in your personal Sandbox web</a>";
             return $return_text;
         }
     }
